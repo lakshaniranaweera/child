@@ -1,144 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Child Survey Form</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f5f5f5;
-}
-.container {
-    max-width: 500px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-.hidden { display: none; }
-label { font-weight: bold; margin-top: 12px; display: block; }
-button {
-    margin-top: 20px;
-    padding: 10px;
-    width: 100%;
-    background: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-}
-img {
-    width: 100px;
-    border-radius: 8px;
-    margin: 5px;
-}
-</style>
+    .section {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .image-options img {
+      width: 80px;
+      margin: 5px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: 0.3s;
+    }
+
+    .image-options img.selected {
+      border-color: blue;
+    }
+  </style>
 </head>
-
 <body>
-<div class="container">
-    <h2>Child Survey Form</h2>
+
+<form id="myForm">
 
     <label>Village Location</label>
-    <select id="village">
-        <option value="">Select</option>
-        <option>Piliyandala</option>
-        <option>Nuwara Eliya</option>
-        <option>Galle</option>
-        <option>Anuradhapura</option>
-        <option>Monaragala</option>
-        <option>Jaffna</option>
+    <select name="village" id="village" required>
+      <option value="">Select</option>
+      <option value="Piliyandala">Piliyandala</option>
+      <option value="Nuwara Eliya">Nuwara Eliya</option>
+      <option value="Galle">Galle</option>
+      <option value="Anuradhapura">Anuradhapura</option>
+      <option value="Monaragala">Monaragala</option>
+      <option value="Jaffna">Jaffna</option>
     </select>
 
     <label>House Number</label>
-    <input type="text" id="houseNumber">
+    <input type="text" name="houseNumber" required>
 
-    <label>Child ID</label>
-    <input type="text" id="childID">
+    <label>Child Identification</label>
+    <input type="text" name="childID" required>
 
     <label>Age</label>
-    <input type="number" id="age">
+    <input type="number" name="age" required>
 
     <label>Gender</label>
-    <select id="gender" onchange="toggleSection()">
-        <option value="">Select</option>
-        <option>Male</option>
-        <option>Female</option>
+    <select id="gender" name="gender" required>
+      <option value="">Select</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
     </select>
 
-    <!-- MALE SECTION -->
-    <div id="maleSection" class="hidden">
-        <label>Select one (Male)</label>
-        <input type="radio" name="answer" value="Male Option 1"> Option 1<br>
-        <input type="radio" name="answer" value="Male Option 2"> Option 2<br>
-        <input type="radio" name="answer" value="Male Option 3"> Option 3<br>
-        <input type="radio" name="answer" value="Male Option 4"> Option 4<br>
-        <input type="radio" name="answer" value="Male Option 5"> Option 5<br>
+    <!-- Male Section -->
+    <div id="maleSection" class="section">
+      <h3>Male Question</h3>
+      <p>Choose one option:</p>
+      <div class="image-options" id="maleOptions">
+        <img src="https://via.placeholder.com/80?text=1" data-value="Option 1">
+        <img src="https://via.placeholder.com/80?text=2" data-value="Option 2">
+        <img src="https://via.placeholder.com/80?text=3" data-value="Option 3">
+        <img src="https://via.placeholder.com/80?text=4" data-value="Option 4">
+        <img src="https://via.placeholder.com/80?text=5" data-value="Option 5">
+      </div>
     </div>
 
-    <!-- FEMALE SECTION -->
-    <div id="femaleSection" class="hidden">
-        <label>Select one (Female)</label>
-        <input type="radio" name="answer" value="Female Option 1"> Option 1<br>
-        <input type="radio" name="answer" value="Female Option 2"> Option 2<br>
-        <input type="radio" name="answer" value="Female Option 3"> Option 3<br>
-        <input type="radio" name="answer" value="Female Option 4"> Option 4<br>
-        <input type="radio" name="answer" value="Female Option 5"> Option 5<br>
+    <!-- Female Section -->
+    <div id="femaleSection" class="section">
+      <h3>Female Question</h3>
+      <p>Choose one option:</p>
+      <div class="image-options" id="femaleOptions">
+        <img src="https://via.placeholder.com/80?text=A" data-value="Option A">
+        <img src="https://via.placeholder.com/80?text=B" data-value="Option B">
+        <img src="https://via.placeholder.com/80?text=C" data-value="Option C">
+        <img src="https://via.placeholder.com/80?text=D" data-value="Option D">
+        <img src="https://via.placeholder.com/80?text=E" data-value="Option E">
+      </div>
     </div>
 
-    <button onclick="submitForm()">Submit</button>
+    <button type="submit">Submit</button>
+</form>
 
-    <p id="msg"></p>
-</div>
+<p id="result"></p>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbz1vBq4BhzMMoP2NuqiuABpZiw2qsMhMstppo6LhnTm/dev";  // ← replace this
+const scriptURL = "https://script.google.com/macros/s/AKfycbzNuZtfqukXFrd4pMJfH_qIHrr7wX52efmT8LryDGGHTE5fRghRiahSwfDiohnmMAn0Xw/exec";
 
-function toggleSection() {
-    const gender = document.getElementById("gender").value;
-    document.getElementById("maleSection").classList.add("hidden");
-    document.getElementById("femaleSection").classList.add("hidden");
+let selectedOption = "";
 
-    if (gender === "Male") {
-        document.getElementById("maleSection").classList.remove("hidden");
-    } else if (gender === "Female") {
-        document.getElementById("femaleSection").classList.remove("hidden");
-    }
-}
+// Show sections based on gender
+document.getElementById("gender").addEventListener("change", function () {
+  let gender = this.value;
 
-async function submitForm() {
-    const data = {
-        village: document.getElementById("village").value,
-        houseNumber: document.getElementById("houseNumber").value,
-        childID: document.getElementById("childID").value,
-        age: document.getElementById("age").value,
-        gender: document.getElementById("gender").value,
-        answer: document.querySelector("input[name='answer']:checked")?.value || ""
-    };
+  document.getElementById("maleSection").style.display = gender === "male" ? "block" : "none";
+  document.getElementById("femaleSection").style.display = gender === "female" ? "block" : "none";
+  selectedOption = "";
+});
 
-    document.getElementById("msg").innerHTML = "Submitting...";
+// Handle image selection
+document.querySelectorAll(".image-options img").forEach(img => {
+  img.addEventListener("click", function () {
 
-    try {
-        const res = await fetch(scriptURL, {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+    document.querySelectorAll(".image-options img").forEach(i => i.classList.remove("selected"));
 
-        const result = await res.json();
-        if (result.status === "success") {
-            document.getElementById("msg").innerHTML = "✔ Submitted successfully!";
-        } else {
-            document.getElementById("msg").innerHTML = "❌ Error: " + result.message;
-        }
-    } catch (error) {
-        document.getElementById("msg").innerHTML = "❌ Failed to fetch (CORS / wrong URL)";
-    }
-}
+    this.classList.add("selected");
+
+    selectedOption = this.getAttribute("data-value");
+  });
+});
+
+// Submit to Google Sheet
+document.getElementById("myForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (selectedOption === "") {
+    alert("Please select an option image.");
+    return;
+  }
+
+  let formData = {
+    village: document.getElementById("village").value,
+    houseNumber: this.houseNumber.value,
+    childID: this.childID.value,
+    age: this.age.value,
+    gender: document.getElementById("gender").value,
+    selectedOption: selectedOption
+  };
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(formData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerHTML = "✔ Data saved successfully!";
+    this.reset();
+    selectedOption = "";
+  })
+  .catch(err => {
+    document.getElementById("result").innerHTML = "❌ Error submitting form!";
+  });
+});
 </script>
 
 </body>
