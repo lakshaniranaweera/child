@@ -1,106 +1,197 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <style>
-    body { font-family: Arial; padding: 20px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blue White Form</title>
 
-    .section {
-      display: none;
-      margin-top: 15px;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5faff;
+    padding: 20px;
+  }
 
-    .image-options img {
-      width: 80px;
-      margin: 5px;
-      cursor: pointer;
-      border: 3px solid transparent;
-      transition: 0.3s;
-    }
+  .form-container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 2px solid #cce0ff;
+    box-shadow: 0 0 15px rgba(0,0,255,0.1);
+  }
 
-    .image-options img.selected {
-      border-color: blue;
-    }
-  </style>
+  label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+    color: #003c8f;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #80b3ff;
+    border-radius: 6px;
+    margin-top: 5px;
+  }
+
+  button {
+    width: 100%;
+    background: #007bff;
+    padding: 12px;
+    margin-top: 20px;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #005fcc;
+  }
+
+  .section {
+    display: none;
+    margin-top: 15px;
+    padding: 12px;
+    border-left: 4px solid #007bff;
+    background: #f0f6ff;
+    border-radius: 6px;
+  }
+
+  .image-options img {
+    width: 70px;
+    margin: 5px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .image-options img.selected {
+    border-color: #007bff;
+    transform: scale(1.05);
+  }
+
+  /* Popup */
+  .popup-bg {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-box {
+    background: white;
+    padding: 25px;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #007bff;
+    box-shadow: 0 0 15px rgba(0,0,255,0.2);
+  }
+
+  .popup-box button {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+</style>
 </head>
 <body>
 
+<div class="form-container">
+
 <form id="myForm">
 
-    <label>Village Location</label>
-    <select name="village" id="village" required>
-      <option value="">Select</option>
-      <option value="Piliyandala">Piliyandala</option>
-      <option value="Nuwara Eliya">Nuwara Eliya</option>
-      <option value="Galle">Galle</option>
-      <option value="Anuradhapura">Anuradhapura</option>
-      <option value="Monaragala">Monaragala</option>
-      <option value="Jaffna">Jaffna</option>
-    </select>
+<label>Village Location</label>
+<select name="village" id="village" required>
+  <option value="">Select</option>
+  <option value="Piliyandala">Piliyandala</option>
+  <option value="Nuwara Eliya">Nuwara Eliya</option>
+  <option value="Galle">Galle</option>
+  <option value="Anuradhapura">Anuradhapura</option>
+  <option value="Monaragala">Monaragala</option>
+  <option value="Jaffna">Jaffna</option>
+</select>
 
-    <label>House Number</label>
-    <input type="text" name="houseNumber" required>
+<label>House Number</label>
+<input type="text" name="houseNumber" required>
 
-    <label>Child Identification</label>
-    <input type="text" name="childID" required>
+<label>Child Identification</label>
+<input type="text" name="childID" required>
 
-    <label>Age</label>
-    <input type="number" name="age" required>
+<label>Age</label>
+<input type="number" name="age" required>
 
-    <label>Gender</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
+<label>Gender</label>
+<select id="gender" name="gender" required>
+  <option value="">Select</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
 
-    <!-- Male Section -->
-    <div id="maleSection" class="section">
-      <h3>Male Question</h3>
-      <p>Choose one option:</p>
-      <div class="image-options" id="maleOptions">
-        <img src="https://via.placeholder.com/80?text=1" data-value="Option 1">
-        <img src="https://via.placeholder.com/80?text=2" data-value="Option 2">
-        <img src="https://via.placeholder.com/80?text=3" data-value="Option 3">
-        <img src="https://via.placeholder.com/80?text=4" data-value="Option 4">
-        <img src="https://via.placeholder.com/80?text=5" data-value="Option 5">
-      </div>
-    </div>
+<!-- Male Section -->
+<div id="maleSection" class="section">
+  <h3>Male Question</h3>
+  <p>Choose one option:</p>
+  <div class="image-options" id="maleOptions">
+    <img src="https://via.placeholder.com/80?text=1" data-value="Option 1">
+    <img src="https://via.placeholder.com/80?text=2" data-value="Option 2">
+    <img src="https://via.placeholder.com/80?text=3" data-value="Option 3">
+    <img src="https://via.placeholder.com/80?text=4" data-value="Option 4">
+    <img src="https://via.placeholder.com/80?text=5" data-value="Option 5">
+  </div>
+</div>
 
-    <!-- Female Section -->
-    <div id="femaleSection" class="section">
-      <h3>Female Question</h3>
-      <p>Choose one option:</p>
-      <div class="image-options" id="femaleOptions">
-        <img src="https://via.placeholder.com/80?text=A" data-value="Option A">
-        <img src="https://via.placeholder.com/80?text=B" data-value="Option B">
-        <img src="https://via.placeholder.com/80?text=C" data-value="Option C">
-        <img src="https://via.placeholder.com/80?text=D" data-value="Option D">
-        <img src="https://via.placeholder.com/80?text=E" data-value="Option E">
-      </div>
-    </div>
+<!-- Female Section -->
+<div id="femaleSection" class="section">
+  <h3>Female Question</h3>
+  <p>Choose one option:</p>
+  <div class="image-options" id="femaleOptions">
+    <img src="https://via.placeholder.com/80?text=A" data-value="Option A">
+    <img src="https://via.placeholder.com/80?text=B" data-value="Option B">
+    <img src="https://via.placeholder.com/80?text=C" data-value="Option C">
+    <img src="https://via.placeholder.com/80?text=D" data-value="Option D">
+    <img src="https://via.placeholder.com/80?text=E" data-value="Option E">
+  </div>
+</div>
 
-    <button type="submit">Submit</button>
+<button type="submit">Submit</button>
 </form>
+</div>
 
-<p id="result"></p>
+<!-- Popup -->
+<div class="popup-bg" id="popup">
+  <div class="popup-box">
+    <h3 id="popupText">Saved Successfully!</h3>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
 
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbzNuZtfqukXFrd4pMJfH_qIHrr7wX52efmT8LryDGGHTE5fRghRiahSwfDiohnmMAn0Xw/exec";
 
 let selectedOption = "";
 
-// Show sections based on gender
+// Gender Logic
 document.getElementById("gender").addEventListener("change", function () {
   let gender = this.value;
 
   document.getElementById("maleSection").style.display = gender === "male" ? "block" : "none";
   document.getElementById("femaleSection").style.display = gender === "female" ? "block" : "none";
+
   selectedOption = "";
 });
 
-// Handle image selection
+// Select Image
 document.querySelectorAll(".image-options img").forEach(img => {
   img.addEventListener("click", function () {
 
@@ -112,12 +203,12 @@ document.querySelectorAll(".image-options img").forEach(img => {
   });
 });
 
-// Submit to Google Sheet
+// Form Submit
 document.getElementById("myForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   if (selectedOption === "") {
-    alert("Please select an option image.");
+    showPopup("Please select an image option!");
     return;
   }
 
@@ -136,14 +227,25 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
   })
   .then(res => res.json())
   .then(data => {
-    document.getElementById("result").innerHTML = "✔ Data saved successfully!";
+    showPopup("✔ Data saved successfully!");
     this.reset();
     selectedOption = "";
   })
   .catch(err => {
-    document.getElementById("result").innerHTML = "❌ Error submitting form!";
+    showPopup("❌ Error submitting form!");
   });
 });
+
+// Popup Controls
+function showPopup(message) {
+  document.getElementById("popupText").innerText = message;
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
 </script>
 
 </body>
