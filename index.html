@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Child Info Form</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    label { display: block; margin: 12px 0 6px; }
+    input, select { width: 100%; padding: 8px; border: 1px solid #aaa; border-radius: 4px; }
+    .section { display: none; margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+    .image-options img { width: 80px; margin: 5px; cursor: pointer; border: 2px solid transparent; border-radius: 8px; }
+    .image-options img.selected { border-color: #007bff; }
+    button { margin-top: 20px; padding: 10px; width: 100%; background: #007bff; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+  <h2>Child Information Form</h2>
+
+  <form id="myForm">
+
+    <label>Village Location</label>
+    <select name="village" id="village" required>
+      <option value="">Select</option>
+      <option value="Piliyandala">Piliyandala</option>
+      <option value="Nuwara Eliya">Nuwara Eliya</option>
+      <option value="Galle">Galle</option>
+      <option value="Anuradhapura">Anuradhapura</option>
+      <option value="Monaragala">Monaragala</option>
+      <option value="Jaffna">Jaffna</option>
+    </select>
+
+    <label>House Number</label>
+    <input type="text" name="houseNumber" required>
+
+    <label>Child Identification</label>
+    <input type="text" name="childID" required>
+
+    <label>Age</label>
+    <input type="number" name="age" required>
+
+    <label>Gender</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <!-- Male Section -->
+    <div id="maleSection" class="section">
+      <h3>Male Question</h3>
+      <p>Choose one option:</p>
+      <div class="image-options">
+        <img src="https://via.placeholder.com/80?text=1" alt="Option 1" data-value="Option 1">
+        <img src="https://via.placeholder.com/80?text=2" alt="Option 2" data-value="Option 2">
+        <img src="https://via.placeholder.com/80?text=3" alt="Option 3" data-value="Option 3">
+        <img src="https://via.placeholder.com/80?text=4" alt="Option 4" data-value="Option 4">
+        <img src="https://via.placeholder.com/80?text=5" alt="Option 5" data-value="Option 5">
+      </div>
+    </div>
+
+    <!-- Female Section -->
+    <div id="femaleSection" class="section">
+      <h3>Female Question</h3>
+      <p>Choose one option:</p>
+      <div class="image-options">
+        <img src="https://via.placeholder.com/80?text=A" alt="Option A" data-value="Option A">
+        <img src="https://via.placeholder.com/80?text=B" alt="Option B" data-value="Option B">
+        <img src="https://via.placeholder.com/80?text=C" alt="Option C" data-value="Option C">
+        <img src="https://via.placeholder.com/80?text=D" alt="Option D" data-value="Option D">
+        <img src="https://via.placeholder.com/80?text=E" alt="Option E" data-value="Option E">
+      </div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwHZ3rM5Uz3xC1KEaEz7G3jBcMTwbMSAO3pu3acUJQl-2_f4nYelCiZUlp76DLUs7cC/exec";
+
+    const genderSelect = document.getElementById("gender");
+    const maleSection = document.getElementById("maleSection");
+    const femaleSection = document.getElementById("femaleSection");
+
+    genderSelect.addEventListener("change", () => {
+      maleSection.style.display = genderSelect.value === "male" ? "block" : "none";
+      femaleSection.style.display = genderSelect.value === "female" ? "block" : "none";
+    });
+
+    document.querySelectorAll(".image-options").forEach(group => {
+      group.addEventListener("click", e => {
+        if (e.target.tagName === "IMG") {
+          group.querySelectorAll("img").forEach(img => img.classList.remove("selected"));
+          e.target.classList.add("selected");
+        }
+      });
+    });
+
+    document.getElementById("myForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const maleSelected = maleSection.querySelector("img.selected");
+      const femaleSelected = femaleSection.querySelector("img.selected");
+
+      if (genderSelect.value === "male" && !maleSelected) {
+        alert("Please select an option for Male Question");
+        return;
+      }
+      if (genderSelect.value === "female" && !femaleSelected) {
+        alert("Please select an option for Female Question");
+        return;
+      }
+
+      const data = {
+        village: document.getElementById("village").value,
+        houseNumber: document.querySelector("input[name='houseNumber']").value,
+        childID: document.querySelector("input[name='childID']").value,
+        age: document.querySelector("input[name='age']").value,
+        gender: genderSelect.value,
+        maleAnswer: maleSelected ? maleSelected.dataset.value : "",
+        femaleAnswer: femaleSelected ? femaleSelected.dataset.value : ""
+      };
+
+      try {
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.status === "success") {
+          alert("Form submitted successfully!");
+          this.reset();
+          maleSection.style.display = "none";
+          femaleSection.style.display = "none";
+          document.querySelectorAll(".image-options img").forEach(img => img.classList.remove("selected"));
+        } else {
+          alert("Submission error: " + (result.message || JSON.stringify(result)));
+        }
+      } catch(err) {
+        alert("Error submitting form: " + err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
