@@ -29,12 +29,15 @@
     color: #003c8f;
   }
 
+  /* One size for all inputs */
   input, select {
     width: 100%;
+    height: 45px;
     padding: 10px;
     border: 1px solid #80b3ff;
     border-radius: 6px;
     margin-top: 5px;
+    font-size: 15px;
   }
 
   button {
@@ -76,31 +79,47 @@
     transform: scale(1.05);
   }
 
-  /* Popup */
+  /* Popup Background */
   .popup-bg {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.45);
     justify-content: center;
     align-items: center;
   }
 
+  /* Popup Window */
   .popup-box {
     background: white;
-    padding: 25px;
-    width: 80%;
-    max-width: 300px;
-    border-radius: 10px;
+    padding: 20px;
+    width: 85%;
+    max-width: 350px;
+    border-radius: 12px;
     text-align: center;
     border: 2px solid #007bff;
-    box-shadow: 0 0 15px rgba(0,0,255,0.2);
+    box-shadow: 0 0 15px rgba(0,0,255,0.25);
+    animation: popupAnimation 0.3s ease;
   }
 
-  .popup-box button {
-    margin-top: 15px;
-    width: 100%;
+  /* Logo */
+  .popup-logo {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+
+  /* Popup Title */
+  .popup-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003c8f;
+    margin-bottom: 10px;
+  }
+
+  @keyframes popupAnimation {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
   }
 
 </style>
@@ -171,7 +190,13 @@
 <!-- Popup -->
 <div class="popup-bg" id="popup">
   <div class="popup-box">
-    <h3 id="popupText">Saved Successfully!</h3>
+
+    <img src="logo.png" class="popup-logo">
+
+    <div class="popup-title">CHRISTMAS MARACLE WITH ASIRI</div>
+
+    <h4 id="popupText" style="margin-bottom:15px;">Saved Successfully!</h4>
+
     <button onclick="closePopup()">OK</button>
   </div>
 </div>
@@ -181,7 +206,7 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbzNuZtfqukXFrd4pMJfH_
 
 let selectedOption = "";
 
-// Gender Logic
+// Show relevant gender sections
 document.getElementById("gender").addEventListener("change", function () {
   let gender = this.value;
 
@@ -191,7 +216,7 @@ document.getElementById("gender").addEventListener("change", function () {
   selectedOption = "";
 });
 
-// Select Image
+// Image selection
 document.querySelectorAll(".image-options img").forEach(img => {
   img.addEventListener("click", function () {
 
@@ -203,7 +228,7 @@ document.querySelectorAll(".image-options img").forEach(img => {
   });
 });
 
-// Form Submit
+// Form submit
 document.getElementById("myForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -236,7 +261,6 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
   });
 });
 
-// Popup Controls
 function showPopup(message) {
   document.getElementById("popupText").innerText = message;
   document.getElementById("popup").style.display = "flex";
@@ -245,7 +269,6 @@ function showPopup(message) {
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
-
 </script>
 
 </body>
