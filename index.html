@@ -118,6 +118,19 @@
     box-shadow: 0 0 15px rgba(0,0,255,0.25);
     animation: popupAnimation 0.3s ease;
   }
+.img-box {
+  display: inline-block;
+  text-align: center;
+  margin: 5px;
+}
+
+.img-box label {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #003c8f;
+  font-weight: bold;
+}
 
   /* Logo */
   .popup-logo {
@@ -182,27 +195,69 @@
 <div id="maleSection" class="section">
   <h3>Male Question</h3>
   <p>Choose one option:</p>
+
   <div class="image-options" id="maleOptions">
-    <img src="https://via.placeholder.com/80?text=1" data-value="Option 1">
-    <img src="https://via.placeholder.com/80?text=2" data-value="Option 2">
-    <img src="https://via.placeholder.com/80?text=3" data-value="Option 3">
-    <img src="https://via.placeholder.com/80?text=4" data-value="Option 4">
-    <img src="https://via.placeholder.com/80?text=5" data-value="Option 5">
+    <div class="img-box">
+      <img src="6.png" data-value="Option 1">
+      <label>School Supplies</label>
+    </div>
+
+    <div class="img-box">
+      <img src="5.jfif" data-value="Option 2">
+      <label>Soft Toy </label>
+    </div>
+
+    <div class="img-box">
+      <img src="2.png" data-value="Option 3">
+      <label>Lunch Box & Bottle </label>
+    </div>
+
+    <div class="img-box">
+      <img src="1.jpg" data-value="Option 4">
+      <label>Toys </label>
+    </div>
+
+    <div class="img-box">
+      <img src="4.jfif" data-value="Option 5">
+      <label>Art Supplies</label>
+    </div>
   </div>
 </div>
+
 
 <!-- Female Section -->
 <div id="femaleSection" class="section">
   <h3>Female Question</h3>
   <p>Choose one option:</p>
+
   <div class="image-options" id="femaleOptions">
-    <img src="https://via.placeholder.com/80?text=A" data-value="Option A">
-    <img src="https://via.placeholder.com/80?text=B" data-value="Option B">
-    <img src="https://via.placeholder.com/80?text=C" data-value="Option C">
-    <img src="https://via.placeholder.com/80?text=D" data-value="Option D">
-    <img src="https://via.placeholder.com/80?text=E" data-value="Option E">
+    <div class="img-box">
+      <img src="6.png" data-value="Option A">
+      <label>School Supplies</label>
+    </div>
+
+    <div class="img-box">
+      <img src="5.jfif" data-value="Option B">
+      <label>Soft Toy </label>
+    </div>
+
+    <div class="img-box">
+      <img src="3.jpg" data-value="Option C">
+      <label>Lunch Box & Bottle </label>
+    </div>
+
+    <div class="img-box">
+      <img src="8.png" data-value="Option D">
+      <label>Toys </label>
+    </div>
+
+    <div class="img-box">
+      <img src="5.jfif" data-value="Option E">
+      <label>Art Supplies</label>
+    </div>
   </div>
 </div>
+
 
 <button type="submit">Submit</button>
 </form>
