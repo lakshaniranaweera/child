@@ -52,11 +52,11 @@
       <h3>Male Question</h3>
       <p>Choose one option:</p>
       <div class="image-options">
-        <img src="https://via.placeholder.com/80?text=1" alt="Option 1" data-value="Option 1">
-        <img src="https://via.placeholder.com/80?text=2" alt="Option 2" data-value="Option 2">
-        <img src="https://via.placeholder.com/80?text=3" alt="Option 3" data-value="Option 3">
-        <img src="https://via.placeholder.com/80?text=4" alt="Option 4" data-value="Option 4">
-        <img src="https://via.placeholder.com/80?text=5" alt="Option 5" data-value="Option 5">
+        <img src="https://via.placeholder.com/80?text=1" data-value="Option 1">
+        <img src="https://via.placeholder.com/80?text=2" data-value="Option 2">
+        <img src="https://via.placeholder.com/80?text=3" data-value="Option 3">
+        <img src="https://via.placeholder.com/80?text=4" data-value="Option 4">
+        <img src="https://via.placeholder.com/80?text=5" data-value="Option 5">
       </div>
     </div>
 
@@ -65,11 +65,11 @@
       <h3>Female Question</h3>
       <p>Choose one option:</p>
       <div class="image-options">
-        <img src="https://via.placeholder.com/80?text=A" alt="Option A" data-value="Option A">
-        <img src="https://via.placeholder.com/80?text=B" alt="Option B" data-value="Option B">
-        <img src="https://via.placeholder.com/80?text=C" alt="Option C" data-value="Option C">
-        <img src="https://via.placeholder.com/80?text=D" alt="Option D" data-value="Option D">
-        <img src="https://via.placeholder.com/80?text=E" alt="Option E" data-value="Option E">
+        <img src="https://via.placeholder.com/80?text=A" data-value="Option A">
+        <img src="https://via.placeholder.com/80?text=B" data-value="Option B">
+        <img src="https://via.placeholder.com/80?text=C" data-value="Option C">
+        <img src="https://via.placeholder.com/80?text=D" data-value="Option D">
+        <img src="https://via.placeholder.com/80?text=E" data-value="Option E">
       </div>
     </div>
 
@@ -83,11 +83,13 @@
     const maleSection = document.getElementById("maleSection");
     const femaleSection = document.getElementById("femaleSection");
 
+    // Show/hide sections based on gender
     genderSelect.addEventListener("change", () => {
       maleSection.style.display = genderSelect.value === "male" ? "block" : "none";
       femaleSection.style.display = genderSelect.value === "female" ? "block" : "none";
     });
 
+    // Image selection logic
     document.querySelectorAll(".image-options").forEach(group => {
       group.addEventListener("click", e => {
         if (e.target.tagName === "IMG") {
@@ -97,6 +99,7 @@
       });
     });
 
+    // Submit form
     document.getElementById("myForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
@@ -125,6 +128,7 @@
       try {
         const res = await fetch(scriptURL, {
           method: "POST",
+          mode: "cors", // enable CORS
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
